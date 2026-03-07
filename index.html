@@ -3,167 +3,177 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Loading... | Lakmina</title>
+    <title>AI HUB | Secure Login</title>
     <style>
-        * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Poppins', sans-serif; }
+        /* මුළු පිටුවේම පෙනුම සකසන CSS */
+        * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; }
 
         body {
-            background-color: #050a18;
             height: 100vh;
             display: flex;
-            flex-direction: column;
-            justify-content: center;
             align-items: center;
+            justify-content: center;
+            background: #020617;
             overflow: hidden;
-            color: white;
-        }
-
-        .loader-container {
             position: relative;
-            width: 200px;
-            height: 200px;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            margin-bottom: 40px;
         }
 
-        /* වටේ කැරකෙන සජීවී වළල්ල */
-        .loader-ring {
+        /* පසුබිමේ ඇති පාවෙන ලස්සන ආලෝකය */
+        .bg-glow {
             position: absolute;
+            width: 600px;
+            height: 600px;
+            background: radial-gradient(circle, rgba(0, 242, 255, 0.1) 0%, transparent 70%);
+            filter: blur(80px);
+            z-index: -1;
+            top: 20%;
+            left: 30%;
+            animation: move 15s infinite alternate ease-in-out;
+        }
+
+        @keyframes move {
+            from { transform: translate(-20%, -20%); }
+            to { transform: translate(20%, 20%); }
+        }
+
+        /* Login Card එක */
+        .login-card {
+            background: rgba(30, 41, 59, 0.4);
+            backdrop-filter: blur(25px);
+            -webkit-backdrop-filter: blur(25px);
+            padding: 60px 40px;
+            border-radius: 40px;
+            border: 1px solid rgba(255, 255, 255, 0.08);
+            text-align: center;
+            width: 90%;
+            max-width: 400px;
+            box-shadow: 0 40px 100px -20px rgba(0, 0, 0, 0.7);
+        }
+
+        .logo-area h1 {
+            font-size: 3.5rem;
+            font-weight: 800;
+            background: linear-gradient(135deg, #ffffff 0%, #00f2ff 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            letter-spacing: -1px;
+            margin-bottom: 8px;
+        }
+
+        .logo-area p {
+            color: #94a3b8;
+            font-size: 1rem;
+            margin-bottom: 45px;
+            font-weight: 400;
+        }
+
+        /* Google බටන් එක */
+        .google-btn {
             width: 100%;
-            height: 100%;
-            border-radius: 50%;
-            border: 3px solid transparent;
-            border-top: 3px solid #00d2ff;
-            border-bottom: 3px solid #3a7bd5;
-            animation: spin 2s linear infinite;
-        }
-
-        /* "L" අකුර සඳහා Neon විලාසිතාව */
-        .logo-l {
-            font-size: 110px;
-            font-weight: 900;
-            color: #fff;
-            text-shadow: 
-                0 0 7px #fff,
-                0 0 10px #fff,
-                0 0 21px #fff,
-                0 0 42px #00d2ff,
-                0 0 82px #00d2ff,
-                0 0 92px #00d2ff;
-            animation: pulsate 1.5s infinite alternate;
-            user-select: none;
-        }
-
-        .percentage {
-            font-size: 28px;
-            font-weight: bold;
-            margin-bottom: 40px;
-            color: #00d2ff;
-            letter-spacing: 2px;
-        }
-
-        /* Buttons Container */
-        .btn-group {
-            display: flex;
-            gap: 20px;
-        }
-
-        .btn {
-            padding: 15px 30px;
-            border-radius: 50px;
-            text-decoration: none;
-            font-weight: 600;
-            font-size: 15px;
-            color: white;
-            transition: 0.4s;
+            padding: 18px;
+            border-radius: 20px;
+            border: none;
+            background: #ffffff;
+            color: #020617;
+            font-weight: 700;
+            font-size: 1.1rem;
             display: flex;
             align-items: center;
-            text-transform: uppercase;
+            justify-content: center;
+            gap: 15px;
+            cursor: pointer;
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            box-shadow: 0 4px 20px rgba(0, 242, 255, 0.15);
         }
 
-        /* WhatsApp Button */
-        .whatsapp {
-            background: linear-gradient(45deg, #25d366, #128c7e);
-            box-shadow: 0 0 20px rgba(37, 211, 102, 0.4);
-        }
-        .whatsapp:hover { box-shadow: 0 0 30px rgba(37, 211, 102, 0.7); transform: translateY(-3px); }
-
-        /* Telegram Button */
-        .telegram {
-            background: linear-gradient(45deg, #0088cc, #005580);
-            box-shadow: 0 0 20px rgba(0, 136, 204, 0.4);
-        }
-        .telegram:hover { box-shadow: 0 0 30px rgba(0, 136, 204, 0.7); transform: translateY(-3px); }
-
-        @keyframes spin {
-            0% { transform: rotate(0deg); }
-            100% { transform: rotate(360deg); }
+        .google-btn:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 15px 35px rgba(0, 242, 255, 0.3);
+            background: #fdfdfd;
         }
 
-        @keyframes pulsate {
-            100% {
-                text-shadow:
-                0 0 4px #fff,
-                0 0 11px #fff,
-                0 0 19px #fff,
-                0 0 40px #00d2ff,
-                0 0 80px #00d2ff,
-                0 0 90px #00d2ff;
-            }
-            0% {
-                text-shadow:
-                0 0 2px #fff,
-                0 0 4px #fff,
-                0 0 6px #fff,
-                0 0 10px #00d2ff,
-                0 0 45px #00d2ff,
-                0 0 55px #00d2ff;
-            }
+        .google-btn img { width: 24px; }
+
+        /* Loading Animation එක */
+        .loader {
+            display: none;
+            width: 28px;
+            height: 28px;
+            border: 3px solid rgba(0, 242, 255, 0.1);
+            border-top-color: #00f2ff;
+            border-radius: 50%;
+            animation: spin 0.8s linear infinite;
+            margin: 25px auto 0;
         }
 
-        .fade-out { animation: fadeOut 1s forwards; }
-        @keyframes fadeOut { to { opacity: 0; visibility: hidden; } }
+        @keyframes spin { to { transform: rotate(360deg); } }
     </style>
 </head>
 <body>
 
-    <div class="loader-container">
-        <div class="loader-ring"></div>
-        <div class="logo-l">L</div>
+    <div class="bg-glow"></div>
+
+    <div class="login-card">
+        <div class="logo-area">
+            <h1>AI HUB</h1>
+            <p>ප්‍රමුඛ පෙළේ AI මෙවලම් සියල්ලම එකම තැනකින්</p>
+        </div>
+        
+        <button id="googleLogin" class="google-btn">
+    <div class="google-icon-wrapper">
+        <img class="google-icon" src="https://upload.wikimedia.org/wikipedia/commons/c/c1/Google_%22G%22_logo.svg" alt="Google Logo"/>
+    </div>
+    <span class="btn-text">Sign in with Google</span>
+</button>
+
+        <div id="loading" class="loader"></div>
     </div>
 
-    <div class="percentage" id="count">0%</div>
+    <script type="module">
+        import { initializeApp } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-app.js";
+        import { getAuth, signInWithPopup, GoogleAuthProvider, onAuthStateChanged } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-auth.js";
 
-    <div class="btn-group">
-        <a href="https://wa.me/94788637885" class="btn whatsapp">WhatsApp</a>
-        <a href="https://t.me/94788637885" class="btn telegram">Telegram</a>
-    </div>
+        // ඔයාගේ Firebase Project සෙටින්ග්ස්
+        const firebaseConfig = {
+  apiKey: "AIzaSyC3LCcUypFPgDjmMX6NQSOJjVTf_nrVfQc",
+  authDomain: "chat-62f73.firebaseapp.com",
+  projectId: "chat-62f73",
+  storageBucket: "chat-62f73.firebasestorage.app",
+  messagingSenderId: "323395960503",
+  appId: "1:323395960503:web:67df3f549d8c6edda6d732",
+  measurementId: "G-5HRMP823SC"
+};
 
-    <script>
-        // --- මෙතැනට ඔබට යා යුතු පිටුවේ ලිපිනය ඇතුළත් කරන්න ---
-        const targetUrl = "https://lakmina348.github.io/Home/HOME.html"; 
-        
-        const countElement = document.getElementById('count');
-        
-        let count = 0;
-        const countInterval = setInterval(() => {
-            count++;
-            countElement.innerText = count + "%";
-            if (count >= 100) clearInterval(countInterval);
-        }, 80); 
+        const app = initializeApp(firebaseConfig);
+        const auth = getAuth(app);
+        const provider = new GoogleAuthProvider();
 
-        // තත්පර 9 කට පසු (Fade out වී තත්පර 1 කින් පසු) අලුත් පිටුවට යොමු වේ
-        setTimeout(() => {
-            document.body.classList.add('fade-out');
-            setTimeout(() => {
-                window.location.href = targetUrl;
-            }, 1000);
-        }, 9000);
+        const loginBtn = document.getElementById('googleLogin');
+        const loader = document.getElementById('loading');
+
+        // ලොග් වී ඇත්නම් Redirect කිරීම
+        onAuthStateChanged(auth, (user) => {
+            if (user) {
+                window.location.href = "0%100.html";
+            }
+        });
+
+        // බටන් එක ක්ලික් කළ විට ලොජික් එක
+        loginBtn.onclick = async () => {
+            loader.style.display = "block";
+            loginBtn.style.opacity = "0.7";
+            loginBtn.style.pointerEvents = "none";
+
+            try {
+                await signInWithPopup(auth, provider);
+            } catch (error) {
+                loader.style.display = "none";
+                loginBtn.style.opacity = "1";
+                loginBtn.style.pointerEvents = "auto";
+                console.error("Login Error:", error);
+                alert("ලොග් වීමේදී ගැටලුවක් මතු විය: " + error.message);
+            }
+        };
     </script>
-
 </body>
-
 </html>
-
